@@ -1,0 +1,42 @@
+<!-- public/banned_plus.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Banned</title>
+<style>
+  body{font-family:Arial;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0}
+  .card{background:#222;padding:20px;border-radius:8px;max-width:900px;width:90%}
+  .sites{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .sites a{background:#333;padding:8px 10px;border-radius:6px;color:#fff;text-decoration:none}
+  .btn{margin-top:12px;padding:10px 14px;border-radius:6px;border:none;background:#1a73e8;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>あなたのアクセスは制限されました</h2>
+    <p>管理者によってアクセスが制限されています。以下はおすすめサイト（ゲームなど）です。クリックで開くか、下のボタンを押して一括で開いてください（ブラウザがポップアップをブロックする可能性があります）。</p>
+    <div class="sites" id="sites">
+      <!-- いくつか適当なゲーム系サイトをサンプルで表示 -->
+      <a href="https://www.miniclip.com/games/en/" target="_blank">Miniclip</a>
+      <a href="https://www.crazygames.com/" target="_blank">CrazyGames</a>
+      <a href="https://www.kongregate.com/" target="_blank">Kongregate</a>
+      <a href="https://www.agame.com/" target="_blank">Agame</a>
+      <a href="https://armor.ag/games" target="_blank">Armor Games</a>
+      <a href="https://www.pogo.com/" target="_blank">Pogo</a>
+      <a href="https://www.addictinggames.com/" target="_blank">AddictingGames</a>
+    </div>
+    <button class="btn" id="openMany">これらを一括で開く（最大10）</button>
+    <p style="color:#bbb;margin-top:8px">注意：ブラウザによりポップアップブロックされることがあります。</p>
+  </div>
+
+<script>
+  document.getElementById('openMany').addEventListener('click', () => {
+    const anchors = Array.from(document.querySelectorAll('#sites a'));
+    const max = Math.min(10, anchors.length);
+    // ユーザー発火のクリックで開く（ブラウザが許可する範囲で）
+    for (let i = 0; i < max; i++) {
+      window.open(anchors[i].href, '_blank');
+    }
+  });
+</script>
+</body>
+</html>
