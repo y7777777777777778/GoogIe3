@@ -1,0 +1,28 @@
+<!-- public/register.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register</title></head>
+<body>
+  <h2>新規登録</h2>
+  <form id="registerForm">
+    <label>ユーザー名: <input id="username" /></label><br/>
+    <label>パスワード: <input id="password" type="password"/></label><br/>
+    <button type="submit">登録</button>
+  </form>
+  <script>
+    async function postJSON(url, data){ const r = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); return r.json(); }
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      const res = await postJSON('/api/register',{username:u,password:p});
+      if(res.ok) {
+        alert('登録成功。機種番号: ' + res.device_code);
+        location.href = '/';
+      } else {
+        alert(res.error || '登録失敗');
+      }
+    });
+  </script>
+</body>
+</html>
