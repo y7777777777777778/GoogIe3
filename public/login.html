@@ -1,0 +1,26 @@
+<!-- public/login.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login</title></head>
+<body>
+  <h2>ログイン</h2>
+  <form id="loginForm">
+    <label>ユーザー名: <input id="username" /></label><br/>
+    <label>パスワード: <input id="password" type="password"/></label><br/>
+    <button type="submit">ログイン</button>
+  </form>
+  <script>
+    async function postJSON(url, data){ const r = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); return r.json(); }
+    const urlParams = new URLSearchParams(location.search);
+    const next = urlParams.get('next') || '/';
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      const res = await postJSON('/api/login',{username:u,password:p});
+      if(res.ok) location.href = next;
+      else alert(res.error || 'ログイン失敗');
+    });
+  </script>
+</body>
+</html>
